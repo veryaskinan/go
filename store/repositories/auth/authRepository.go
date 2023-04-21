@@ -15,16 +15,16 @@ func getAuthTokenRedisKey(phone string) string {
 
 func SaveAuthCode(phone string, code string, durationMinutes uint) {
 	key := getAuthCodeRedisKey(phone)
-	redis.NewClient().SetEx(key, code, durationMinutes*60)
+	redis.Client.SetEx(key, code, durationMinutes*60)
 }
 
 func GetAuthCode(phone string) string {
 	key := getAuthCodeRedisKey(phone)
-	value := redis.NewClient().Get(key)
+	value := redis.Client.Get(key)
 	return value
 }
 
 func SaveToken(phone string, token string, durationHours uint) {
 	key := getAuthTokenRedisKey(phone)
-	redis.NewClient().SetEx(key, token, durationHours*60*60)
+	redis.Client.SetEx(key, token, durationHours*60*60)
 }

@@ -7,11 +7,14 @@ import (
 	"main/_lib/redis/types"
 )
 
-func NewClient() types.RedisClient {
+var Client types.RedisClient
+
+func Init() {
 	redisAddr := env.Get("REDIS_HOST") + ":" + env.Get("REDIS_PORT")
 	redisPass := env.Get("REDIS_PASSWORD")
 	redisDb := env.GetInt("REDIS_BD")
-	return types.RedisClient{
+
+	Client = types.RedisClient{
 		Client: redis.NewClient(&redis.Options{
 			Addr:     redisAddr,
 			Password: redisPass,

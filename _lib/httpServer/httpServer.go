@@ -21,7 +21,7 @@ func handle(uri string, handler func(req types.Request, res types.Response)) {
 	})
 }
 
-func Start(endpoints []types.Endpoint) {
+func Start(port string, endpoints []types.Endpoint) {
 	logger.Info("HTTP SERVER: Init endpoints")
 
 	for _, endpoint := range endpoints {
@@ -31,9 +31,9 @@ func Start(endpoints []types.Endpoint) {
 
 	logger.Info("HTTP SERVER: All endpoints inited")
 
-	logger.Info("HTTP SERVER: Listen 2345")
+	logger.Info("HTTP SERVER: Listen " + port)
 
-	err := http.ListenAndServe(":2345", nil)
+	err := http.ListenAndServe(":"+port, nil)
 
 	if err != nil {
 		logger.Info("ERROR! Http server start error")

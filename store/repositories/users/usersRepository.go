@@ -1,7 +1,11 @@
 package auth
 
-import "main/_lib/db"
+import (
+	"github.com/google/uuid"
+	"main/_lib/db"
+)
 
 func Create(phone string) {
-	db.Client.Exec("insert into users (phone) values (?)", map[string]interface{}{phone: phone})
+	userId := uuid.New().String()
+	db.Client.Exec("insert into users (id, phone) values (?, ?)", userId, phone)
 }

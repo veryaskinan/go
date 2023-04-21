@@ -5,7 +5,7 @@ import (
 	"main/_lib/env"
 )
 
-var Client types.DbClient
+var Client types.DbClient = types.DbClient{}
 
 func Init() {
 	Client.Init(types.DbConfig{

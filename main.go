@@ -1,20 +1,21 @@
 package main
 
 import (
-	"github.com/joho/godotenv"
 	"main/_lib/db"
+	"main/_lib/env"
 	"main/_lib/httpServer"
-	"main/_lib/logger"
+	"main/_lib/redis"
 	"main/controllers"
 )
 
 func init() {
-	if err := godotenv.Load(); err != nil {
-		logger.Info("No .env file found")
-	}
+	env.Init()
 	db.Init()
+	redis.Init()
 }
 
 func main() {
-	httpServer.Start(controllers.GetEnpoints())
+	port := env.Get("APP_PORT")
+	endpoints := controllers.GetEnpoints()
+	httpServer.Start(port, endpoints)
 }
