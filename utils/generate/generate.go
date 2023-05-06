@@ -4,6 +4,9 @@ import (
 	"errors"
 	"fmt"
 	"github.com/zach-klippenstein/goregen"
+	"main/_lib/logger"
+	"math/rand"
+	"time"
 )
 
 func validate(length uint8) (bool, error) {
@@ -13,17 +16,28 @@ func validate(length uint8) (bool, error) {
 	return true, nil
 }
 
-func Number(length uint8) (string, error) {
+func Number(length uint8) string {
 	_, err := validate(length)
 	if err != nil {
-		return "", errors.New("Length validation error")
+		logger.Info("ERROR! Length validation error")
 	}
-	number, err := regen.Generate(fmt.Sprintf("[0-9]{%d}", length))
-
-	return number, nil
+	return generate(fmt.Sprintf("[0-9]{%d}", length))
 }
 
 func String(length uint8) string {
-	token, _ := regen.Generate(fmt.Sprintf("[0-9a-zA-Z]{%d}", length))
-	return token
+	_, err := validate(length)
+	if err != nil {
+		logger.Info("ERROR! Length validation error")
+	}
+	return generate(fmt.Sprintf("[0-9a-zA-Z]{%d}", length))
+}
+
+func generate(pattern string) string {
+	rand.Seed(time.Now().Unix())
+	seed := rand.Int63()
+	generator, err := regen.NewGenerator(pattern, &regen.GeneratorArgs{RngSource: rand.NewSource(seed)})
+	if err != nil {
+		logger.Info("ERROR! New generator error error")
+	}
+	return generator.Generate()
 }

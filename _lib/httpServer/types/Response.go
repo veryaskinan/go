@@ -11,11 +11,11 @@ type Response struct {
 	Writer http.ResponseWriter
 }
 
-func (r Response) SetStatus(statusCode int) {
+func (r *Response) SetStatus(statusCode int) {
 	r.Writer.WriteHeader(statusCode)
 }
 
-func (r Response) SendJson(data any) {
+func (r *Response) SendJson(data any) {
 	r.Writer.Header().Set("Content-Type", "application/json")
 
 	jsonData, jsonError := json.Marshal(data)
@@ -30,10 +30,10 @@ func (r Response) SendJson(data any) {
 	}
 }
 
-func (r Response) SendError(error error) {
+func (r *Response) SendError(errorMessage string) {
 	r.Writer.Header().Set("Content-Type", "application/json")
 
-	jsonData, jsonError := json.Marshal(error.Error())
+	jsonData, jsonError := json.Marshal(errorMessage)
 
 	if jsonError != nil {
 		logger.Info("ERROR! Json encode error")

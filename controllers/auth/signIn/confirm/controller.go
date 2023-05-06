@@ -3,7 +3,7 @@ package confirm
 import (
 	"fmt"
 	httpServerTypes "main/_lib/httpServer/types"
-	"main/domen/auth/signIn/confirm"
+	"main/domen/modules/auth/signIn/confirm"
 )
 
 func Handler(req httpServerTypes.Request, res httpServerTypes.Response) {
@@ -16,7 +16,7 @@ func Handler(req httpServerTypes.Request, res httpServerTypes.Response) {
 	} else {
 		result, err := confirm.Confirm(signUpInfo)
 		if err != nil {
-			res.SendError(err)
+			res.SendError(err.Error())
 		} else {
 			res.SendJson(result)
 		}

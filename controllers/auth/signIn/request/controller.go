@@ -3,7 +3,7 @@ package request
 import (
 	"fmt"
 	httpServerTypes "main/_lib/httpServer/types"
-	"main/domen/auth/signIn/request"
+	"main/domen/modules/auth/signIn/request"
 )
 
 func Handler(req httpServerTypes.Request, res httpServerTypes.Response) {

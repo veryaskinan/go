@@ -21,3 +21,8 @@ func GetInt(key string) int {
 	value, _ := strconv.Atoi(os.Getenv(key))
 	return value
 }
+
+func GetInt64(key string) int64 {
+	value, _ := strconv.ParseInt(os.Getenv(key), 10, 64)
+	return value
+}

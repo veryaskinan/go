@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 	httpServerTypes "main/_lib/httpServer/types"
-	"main/domen/auth/signIn/confirm"
+	"main/domen/modules/auth/signIn/confirm"
 )
 
 func validate(req httpServerTypes.Request) (confirm.ConfirmInfo, error) {
