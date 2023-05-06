@@ -1,10 +1,9 @@
-package types
+package redis
 
 import (
 	"context"
-	"errors"
 	redis "github.com/redis/go-redis/v9"
-	"main/_lib/logger"
+	redisErrors "main/_lib/redis/errors"
 	"time"
 )
 
@@ -16,19 +15,19 @@ type RedisClient struct {
 func (rc RedisClient) Get(key string) (string, error) {
 	value, err := rc.Client.Get(rc.Ctx, key).Result()
 	if err != nil {
-		logger.Info("ERROR! Get redis value error.")
-		return "", errors.New("notFound")
+		return "", redisErrors.NewGetError(key, err)
 	}
 	return value, nil
 }
 
-func (rc RedisClient) SetEx(key string, value string, expireSec uint) {
+func (rc RedisClient) SetEx(key string, value string, expireSec uint) error {
 	err := rc.Client.Set(rc.Ctx, key, value, time.Duration(expireSec*1e9)).Err()
 	if err != nil {
-		logger.Info("ERROR! Set redis value error.")
+		return redisErrors.NewSetError(key, value, expireSec, err)
 	}
+	return nil
 }
 
-func (rc RedisClient) Set(key string, value string) {
-	rc.SetEx(key, value, 0)
+func (rc RedisClient) Set(key string, value string) error {
+	return rc.SetEx(key, value, 0)
 }

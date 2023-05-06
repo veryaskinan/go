@@ -1,9 +1,8 @@
 package auth
 
 import (
-	"errors"
-	"main/_lib/logger"
 	"main/_lib/redis"
+	"main/store/repositories/auth/errors"
 )
 
 var authCodePrefix string = "auth:code:"
@@ -17,30 +16,37 @@ func getAuthTokenRedisKey(phone string) string {
 	return authTokenPrefix + phone
 }
 
-func SaveAuthCode(phone string, code string, durationMinutes uint) {
+func SaveAuthCode(phone string, code string, durationMinutes uint) error {
 	key := getAuthCodeRedisKey(phone)
-	redis.Client.SetEx(key, code, durationMinutes*60)
+	err := redis.Client.SetEx(key, code, durationMinutes*60)
+	if err != nil {
+		return errors.NewSaveAuthCodeError(code, phone, durationMinutes, err)
+	}
+	return nil
 }
 
-func GetAuthCode(phone string) string {
+func GetAuthCode(phone string) (string, error) {
 	key := getAuthCodeRedisKey(phone)
 	code, err := redis.Client.Get(key)
 	if err != nil {
-		logger.Info("ERROR! GetAuthCode() Code not found")
+		return "", errors.NewGetAuthCodeError(phone, err)
 	}
-	return code
+	return code, nil
 }
 
 func GetByToken(token string) (string, error) {
 	key := getAuthTokenRedisKey(token)
 	userInfo, err := redis.Client.Get(key)
 	if err != nil {
-		logger.Info("ERROR! GetByToken() userInfo not found")
-		return "", errors.New("tokenNotFound")
+		return "", errors.NewGetUserInfoError(token, err)
 	}
 	return userInfo, nil
 }
-func SaveToken(phone string, token string, durationHours uint) {
+func SaveToken(phone string, token string, durationHours uint) error {
 	key := getAuthTokenRedisKey(token)
-	redis.Client.SetEx(key, phone, durationHours*60*60)
+	err := redis.Client.SetEx(key, phone, durationHours*60*60)
+	if err != nil {
+		return errors.NewSaveTokenError(phone, token, durationHours, err)
+	}
+	return nil
 }
