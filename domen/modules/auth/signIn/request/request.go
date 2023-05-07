@@ -10,7 +10,7 @@ func Request(requestInfo RequestInfo) (string, error) {
 	code, err := authRepository.GetAuthCode(requestInfo.Phone)
 
 	if err != nil {
-		return "", errors.New("error!!!!!")
+		return "", errors.New("errors!!!!!")
 	}
 
 	if code == "" {

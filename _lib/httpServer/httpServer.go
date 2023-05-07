@@ -43,6 +43,6 @@ func Start(port string, endpoints []types.Endpoint) {
 	err := http.ListenAndServe(":"+port, nil)
 
 	if err != nil {
-		logger.Info("ERROR! Http server start error")
+		logger.Info("ERROR! Http server start errors")
 	}
 }

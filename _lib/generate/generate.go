@@ -19,7 +19,7 @@ func validate(length uint8) (bool, error) {
 func Number(length uint8) string {
 	_, err := validate(length)
 	if err != nil {
-		logger.Info("ERROR! Length validation error")
+		logger.Info("ERROR! Length validation errors")
 	}
 	return generate(fmt.Sprintf("[0-9]{%d}", length))
 }
@@ -27,7 +27,7 @@ func Number(length uint8) string {
 func String(length uint8) string {
 	_, err := validate(length)
 	if err != nil {
-		logger.Info("ERROR! Length validation error")
+		logger.Info("ERROR! Length validation errors")
 	}
 	return generate(fmt.Sprintf("[0-9a-zA-Z]{%d}", length))
 }
@@ -37,7 +37,7 @@ func generate(pattern string) string {
 	seed := rand.Int63()
 	generator, err := regen.NewGenerator(pattern, &regen.GeneratorArgs{RngSource: rand.NewSource(seed)})
 	if err != nil {
-		logger.Info("ERROR! New generator error error")
+		logger.Info("ERROR! New generator errors errors")
 	}
 	return generator.Generate()
 }

@@ -21,12 +21,12 @@ func (r *Response) SendJson(data any) {
 	jsonData, jsonError := json.Marshal(data)
 
 	if jsonError != nil {
-		logger.Info("ERROR! Json encode error")
+		logger.Info("ERROR! Json encode errors")
 	}
 
 	_, err := fmt.Fprintf(r.Writer, string(jsonData))
 	if err != nil {
-		logger.Info("ERROR! Send response error")
+		logger.Info("ERROR! Send response errors")
 	}
 }
 
@@ -36,12 +36,12 @@ func (r *Response) SendError(errorMessage string) {
 	jsonData, jsonError := json.Marshal(errorMessage)
 
 	if jsonError != nil {
-		logger.Info("ERROR! Json encode error")
+		logger.Info("ERROR! Json encode errors")
 	}
 
 	_, err := fmt.Fprintf(r.Writer, string(jsonData))
 
 	if err != nil {
-		logger.Info("ERROR! Send response error")
+		logger.Info("ERROR! Send response errors")
 	}
 }
