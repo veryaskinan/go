@@ -2,13 +2,16 @@ package confirm
 
 import (
 	"errors"
+	"main/_lib/generate"
 	authRepository "main/store/repositories/auth"
 	usersRepository "main/store/repositories/users"
-	"main/utils/generate"
 )
 
 func Confirm(confirmInfo ConfirmInfo) (string, error) {
-	authCode := authRepository.GetAuthCode(confirmInfo.Phone)
+	authCode, err := authRepository.GetAuthCode(confirmInfo.Phone)
+	if err != nil {
+		return "error", errors.New("error!!!!!!")
+	}
 	if confirmInfo.Code != authCode {
 		return "error", errors.New("Wrong auth code")
 	}

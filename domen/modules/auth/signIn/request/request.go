@@ -1,12 +1,17 @@
 package request
 
 import (
+	"errors"
+	"main/_lib/generate"
 	authRepository "main/store/repositories/auth"
-	"main/utils/generate"
 )
 
 func Request(requestInfo RequestInfo) (string, error) {
-	code := authRepository.GetAuthCode(requestInfo.Phone)
+	code, err := authRepository.GetAuthCode(requestInfo.Phone)
+
+	if err != nil {
+		return "", errors.New("error!!!!!")
+	}
 
 	if code == "" {
 		code = generateCode()
