@@ -1,8 +1,10 @@
 package auth
 
-import httpServerTypes "main/_lib/httpServer/types"
-import "main/controllers/auth/signIn/request"
-import "main/controllers/auth/signIn/confirm"
+import (
+	httpServerTypes "main/_lib/httpServer/types"
+	"main/represent/controllers/auth/signIn/confirm"
+	"main/represent/controllers/auth/signIn/request"
+)
 
 func GetEndpoints() []httpServerTypes.Endpoint {
 	return []httpServerTypes.Endpoint{

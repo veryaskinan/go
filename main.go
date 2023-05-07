@@ -5,7 +5,7 @@ import (
 	"main/_lib/env"
 	"main/_lib/httpServer"
 	"main/_lib/redis"
-	"main/controllers"
+	"main/represent"
 )
 
 func init() {
@@ -16,6 +16,6 @@ func init() {
 
 func main() {
 	port := env.Get("APP_PORT")
-	endpoints := controllers.GetEnpoints()
+	endpoints := represent.GetEnpoints()
 	httpServer.Start(port, endpoints)
 }

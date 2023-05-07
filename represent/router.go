@@ -1,9 +1,9 @@
-package controllers
+package represent
 
 import (
 	httpServerTypes "main/_lib/httpServer/types"
-	"main/controllers/auth"
-	"main/controllers/welcome"
+	"main/represent/controllers/auth"
+	"main/represent/controllers/welcome"
 )
 
 func GetEnpoints() []httpServerTypes.Endpoint {

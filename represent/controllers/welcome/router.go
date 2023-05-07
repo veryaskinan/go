@@ -2,7 +2,7 @@ package welcome
 
 import (
 	httpServerTypes "main/_lib/httpServer/types"
-	middlewares "main/controllers/_/middlewares"
+	"main/represent/middlewares"
 )
 
 func GetEndpoints() []httpServerTypes.Endpoint {
