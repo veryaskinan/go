@@ -1,6 +1,7 @@
 package httpServer
 
 import (
+	"main/_lib/httpServer/request"
 	"main/_lib/httpServer/types"
 	"main/_lib/logger"
 	"net/http"
@@ -13,9 +14,9 @@ type LogMessage struct {
 	Payload interface{} `json:"payload"`
 }
 
-func handle(uri string, handler func(req types.Request, res types.Response), middlewares []types.Middleware) {
+func handle(uri string, handler func(req request.Request, res types.Response), middlewares []types.Middleware) {
 	http.HandleFunc(uri, func(rw http.ResponseWriter, req *http.Request) {
-		httpRequest := types.Request{req, ""}
+		httpRequest := request.Request{req, ""}
 		httpResponse := types.Response{rw}
 		var middlewareError error
 		for _, middleware := range middlewares {

@@ -2,11 +2,12 @@ package request
 
 import (
 	"fmt"
+	request2 "main/_lib/httpServer/request"
 	httpServerTypes "main/_lib/httpServer/types"
 	"main/domen/modules/auth/signIn/request"
 )
 
-func Handler(req httpServerTypes.Request, res httpServerTypes.Response) {
+func Handler(req request2.Request, res httpServerTypes.Response) {
 	signUpInfo, err := validate(req)
 
 	if err != nil {

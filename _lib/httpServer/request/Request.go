@@ -1,8 +1,9 @@
-package types
+package request
 
 import (
 	"encoding/json"
 	"io"
+	"main/_lib/httpServer/request/errors"
 	"net/http"
 )
 
@@ -20,6 +21,10 @@ func (r *Request) GetBody() AnyMap {
 	return bodyMap
 }
 
-func (r *Request) GetHeader(headerName string) string {
-	return r.Request.Header.Get(headerName)
+func (r *Request) GetHeader(headerName string) (string, error) {
+	header := r.Request.Header.Get(headerName)
+	if header == "" {
+		return "", errors.NewGetHeaderError(headerName, nil)
+	}
+	return header, nil
 }

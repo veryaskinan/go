@@ -3,7 +3,7 @@ package request
 import (
 	"errors"
 	"fmt"
-	httpServerTypes "main/_lib/httpServer/types"
+	httpServerTypes "main/_lib/httpServer/request"
 	"main/domen/modules/auth/signIn/request"
 )
 

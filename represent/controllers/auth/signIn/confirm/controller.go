@@ -2,11 +2,12 @@ package confirm
 
 import (
 	"fmt"
+	"main/_lib/httpServer/request"
 	httpServerTypes "main/_lib/httpServer/types"
 	"main/domen/modules/auth/signIn/confirm"
 )
 
-func Handler(req httpServerTypes.Request, res httpServerTypes.Response) {
+func Handler(req request.Request, res httpServerTypes.Response) {
 	signUpInfo, err := validate(req)
 
 	if err != nil {
