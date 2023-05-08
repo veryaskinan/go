@@ -8,7 +8,7 @@ type GetAuthCodeError struct {
 }
 
 func (gace GetAuthCodeError) Error() string {
-	return fmt.Sprintf("Error saving auth code %v for %v", gace.Phone)
+	return fmt.Sprintf("Error getting auth code for %v", gace.Phone)
 }
 
 func NewGetAuthCodeError(phone string, error error) error {

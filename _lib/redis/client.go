@@ -15,6 +15,9 @@ type RedisClient struct {
 func (rc RedisClient) Get(key string) (string, error) {
 	value, err := rc.Client.Get(rc.Ctx, key).Result()
 	if err != nil {
+		if err.Error() == "redis: nil" {
+			return "", redisErrors.NewNotFoundError(key, err)
+		}
 		return "", redisErrors.NewGetError(key, err)
 	}
 	return value, nil

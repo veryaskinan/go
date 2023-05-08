@@ -8,14 +8,14 @@ import (
 )
 
 func Handler(req request2.Request, res httpServerTypes.Response) {
-	signUpInfo, err := validate(req)
+	signInInfo, err := validate(req)
 
 	if err != nil {
 		res.SetStatus(400)
 		res.SendJson(fmt.Sprint(err))
 		return
 	} else {
-		result, err := request.Request(signUpInfo)
+		result, err := request.Request(signInInfo)
 		if err != nil {
 			res.SendJson(err)
 		}

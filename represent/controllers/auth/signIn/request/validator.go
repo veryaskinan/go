@@ -4,10 +4,10 @@ import (
 	"errors"
 	"fmt"
 	httpServerTypes "main/_lib/httpServer/request"
-	"main/domen/modules/auth/signIn/request"
+	"main/domen/modules/auth/signIn/request/types"
 )
 
-func validate(req httpServerTypes.Request) (request.RequestInfo, error) {
+func validate(req httpServerTypes.Request) (types.RequestInfo, error) {
 	body := req.GetBody()
 
 	_, phoneIsString := body["phone"].(string)
@@ -18,7 +18,7 @@ func validate(req httpServerTypes.Request) (request.RequestInfo, error) {
 		err = errors.New("Phone must be a string")
 	}
 
-	requestInfo := request.RequestInfo{
+	requestInfo := types.RequestInfo{
 		Phone: fmt.Sprintf("%v", body["phone"]),
 	}
 
